@@ -2,11 +2,13 @@ import streamlit as st
 
 def main():
     st.title("Login App")
-    
-    # Create username and password input fields
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    
+
+    # Create a container box for the login fields
+    with st.container():
+        # Create username and password input fields
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+
     # Check if the login button is pressed
     if st.button("Login"):
         if authenticate(username, password):
