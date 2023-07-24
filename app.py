@@ -1,31 +1,13 @@
+from flask import Flask, render_template
 import streamlit as st
 
-def main():
-    st.title("Login App")
-
-    # Create a container box for the login fields
-    with st.container():
-        # Create username and password input fields
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
-
-    # Check if the login button is pressed
-    if st.button("Login"):
-        if authenticate(username, password):
-            st.success("Login successful!")
-        else:
-            st.error("Invalid username or password.")
-
-def authenticate(username, password):
-    # You can customize this function to validate the credentials.
-    # For simplicity, I'll just hardcode a valid username and password.
-    valid_username = "admin"
-    valid_password = "password"
-    
-    if username == valid_username and password == valid_password:
-        return True
-    else:
-        return False
-
-if __name__ == "__main__":
-    main()
+app = Flask(__name__)
+@app.route('/')
+def index():
+    return render_template('index.html')
+@app.route('/streamlit')
+def streamlit():
+    st.set_page_config(page_title="My Streamlit App")
+    st.write("Hello, world!")
+if __name__ == '__main__':
+    app.run()
