@@ -15,24 +15,7 @@ import string
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords 
-from string import punctuation
-from nltk.corpus import wordnet as wn
-from nltk.stem import WordNetLemmatizer
-from nltk.probability import FreqDist
-from nltk.collocations import *
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction import text
-from sklearn.neighbors import NearestNeighbors
-from sklearn.preprocessing import MinMaxScaler
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
+
 from streamlit_option_menu import option_menu
 from os import path, listdir
 import glob
