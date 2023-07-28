@@ -17,3 +17,4 @@ st-material-table
 pandas
 plost
 streamlit-authenticator
+streamlit-embedcode
