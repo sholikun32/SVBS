@@ -3,7 +3,7 @@ pdfplumber
 matplotlib
 streamlit
 seaborn
-sklearn
+
 plotly
 folium
 streamlit_folium
