@@ -8,6 +8,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import streamlit.components.v1 as components
 import streamlit.components.v1 as stc
 
+
+
 # Ignore warning
 st.set_option('deprecation.showPyplotGlobalUse', False)
 # Set wide layout
@@ -26,43 +28,34 @@ st.markdown("""
 
 def check_password():
     """Returns `True` if the user had a correct password."""
-    password_correct = False
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if (
+            st.session_state["username"] in st.secrets["passwords"]
+            and st.session_state["password"]
+            == st.secrets["passwords"][st.session_state["username"]]
+        ):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # don't store username + password
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
         # First run, show inputs for username + password.
         st.text_input("Username", on_change=password_entered, key="username")
         st.text_input("Password", type="password", on_change=password_entered, key="password")
-        if st.button("Login"):  # Add login button
-            password_correct = validate_password()  # Add a function to validate the password
+        return False
     elif not st.session_state["password_correct"]:
         # Password not correct, show input + error.
         st.text_input("Username", on_change=password_entered, key="username")
         st.text_input("Password", type="password", on_change=password_entered, key="password")
         st.error("😕 Tekan enter untuk username dan password")
+        return False
     else:
         # Password correct.
-        password_correct = True
-
-    return password_correct
-
-def password_entered():
-    """Checks whether a password entered by the user is correct."""
-    if (
-        st.session_state["username"] in st.secrets["passwords"]
-        and st.session_state["password"]
-        == st.secrets["passwords"][st.session_state["username"]]
-    ):
-        st.session_state["password_correct"] = True
-        del st.session_state["password"]  # don't store username + password
-        del st.session_state["username"]
-    else:
-        st.session_state["password_correct"] = False
-
-def validate_password():
-    """Validate the password - Replace with your validation logic."""
-    # Replace this with your own password validation logic.
-    # Return True if password is correct, else False.
-    return True  # For example, always return True for demonstration purposes.
+        return True
 
 if check_password():
     com.html("""
